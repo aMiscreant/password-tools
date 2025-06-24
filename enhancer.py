@@ -2,6 +2,8 @@
 import argparse
 import itertools
 import random
+import random
+import string
 
 LEET_MAP = {
     'a': ['4', '@', '^', 'à', 'æ'],
@@ -37,7 +39,7 @@ PREFIXES = [
     '!', '@', '#', '$', '2024', 'VIP', 'the', 'mr', 'ms', 'dr'
 ]
 
-MAX_LEET_REPLACEMENTS = 3  # Max chars replaced per word to avoid explosion
+MAX_LEET_REPLACEMENTS = 1  # Max chars replaced per word to avoid explosion
 
 
 def load_words(file):
@@ -54,6 +56,19 @@ def toggle_case(word):
         else:
             new_word.append(ch)
     return ''.join(new_word)
+
+
+def generate_ios_password(length=20):
+    chars = string.ascii_letters + string.digits + "!@#$%^&*()-_=+"
+    return ''.join(random.choices(chars, k=length))
+
+def generate_android_password(length=16):
+    chars = string.ascii_letters + string.digits + "!@#"
+    return ''.join(random.choices(chars, k=length))
+
+def generate_memorable_password():
+    words = ['sun', 'moon', 'star', 'cloud', 'river', 'wolf', 'cat', 'blue', 'fire', 'tree']
+    return random.choice(words).capitalize() + str(random.randint(10, 99)) + random.choice('!@#')
 
 
 def leetspeak_variants(word):
@@ -123,6 +138,7 @@ def generate_variants(words, do_leet, do_suffix, do_prefix, do_toggle):
 
 
 def main():
+    # python3 enhance_wordlist.py -i base_words.txt -o enhanced.txt --leet --suffix --prefix --toggle --max 10000
     parser = argparse.ArgumentParser(description="Advanced wordlist enhancer with leetspeak, suffixes, prefixes, toggle case.")
     parser.add_argument("-i", "--input", required=True, help="Input file with words")
     parser.add_argument("-o", "--output", required=True, help="Output file to write enhanced words")
@@ -131,7 +147,7 @@ def main():
     parser.add_argument("--prefix", action="store_true", help="Add common prefixes")
     parser.add_argument("--toggle", action="store_true", help="Randomly toggle case in words")
     parser.add_argument("--overwrite", action="store_true", help="Overwrite input file instead of writing to output")
-    parser.add_argument("--max", type=int, default=50000, help="Max number of generated variants (to avoid huge output)")
+    parser.add_argument("--max", type=int, default=5000000000000, help="Max number of generated variants (to avoid huge output)")
 
     args = parser.parse_args()
 
