@@ -105,7 +105,7 @@ def generate_variants(words, do_leet, do_suffix, do_prefix, do_toggle, limit=Non
             variants.update(toggle_case(w) for w in list(variants))
 
         if do_prefix:
-            variants.update(apply_prefixes(variants))
+            variants.update(apply_prefixes(list(variants)))
 
         if do_suffix:
             variants.update(apply_suffixes(list(variants)))
